@@ -11,7 +11,9 @@ interface Message {
   text: string;
   isUser: boolean;
   emotion?: string;
+  coping_mechanism?: string;
   action?: string;
+  alternative_coping?: string;
   timestamp: Date;
 }
 
@@ -54,7 +56,9 @@ const Index = () => {
         text: data.response,
         isUser: false,
         emotion: data.emotion,
+        coping_mechanism: data.coping_mechanism,
         action: data.action,
+        alternative_coping: data.alternative_coping,
         timestamp: new Date(),
       };
 
@@ -98,7 +102,9 @@ const Index = () => {
                   message={message.text}
                   isUser={message.isUser}
                   emotion={message.emotion}
+                  coping_mechanism={message.coping_mechanism}
                   action={message.action}
+                  alternative_coping={message.alternative_coping}
                   timestamp={message.timestamp}
                 />
               ))}

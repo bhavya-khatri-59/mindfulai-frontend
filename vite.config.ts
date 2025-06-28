@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/mindfulai-frontend/",
+  base: "/mindfulai-frontend/docs/",
   server: {
     host: "::",
     port: 8080,

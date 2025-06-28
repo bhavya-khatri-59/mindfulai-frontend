@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { ChatMessage } from "@/components/ChatMessage";
 import { ChatInput } from "@/components/ChatInput";
@@ -33,33 +32,25 @@ const Index = () => {
     setIsLoading(true);
 
     try {
-      // TODO: Replace with actual API call to your FastAPI backend
-      // const response = await fetch('http://localhost:8000/analyze', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ thought: text })
-      // });
-      // const data = await response.json();
+      const response = await fetch('http://localhost:8000/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ thought: text })
+      });
 
-      // Simulated response for demo purposes
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      const simulatedResponse = {
-        emotion: "This appears to be a stress-related concern with underlying anxiety. The tone suggests you're seeking support and validation.",
-        action: "Try taking 5 deep breaths right now. Consider breaking down your tasks into smaller, manageable steps. Remember that it's okay to ask for help when you need it."
-      };
+      const data = await response.json();
 
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: "I understand you're going through a challenging time. Let me help you process these feelings.",
+        text: data.response,
         isUser: false,
-        emotion: simulatedResponse.emotion,
-        action: simulatedResponse.action,
+        emotion: data.emotion,
+        action: data.action,
         timestamp: new Date(),
       };
 
       setMessages(prev => [...prev, aiMessage]);
-      
+
     } catch (error) {
       console.error('Error sending message:', error);
       toast({
@@ -102,7 +93,7 @@ const Index = () => {
                   timestamp={message.timestamp}
                 />
               ))}
-              
+
               {isLoading && <TypingIndicator />}
             </div>
           </ScrollArea>

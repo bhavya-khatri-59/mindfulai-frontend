@@ -1,73 +1,213 @@
-# Welcome to your Lovable project
+# MindfulAI - AI-Powered Mental Health Chat Assistant
 
-## Project info
+MindfulAI is an intelligent chat application that provides emotional support and mental health guidance through AI-powered conversation analysis. The application analyzes user emotions, identifies current coping mechanisms, and suggests healthier alternatives to promote mental wellbeing.
 
-**URL**: https://lovable.dev/projects/d1fe37ab-ad17-474e-8176-cce670023c85
+## 🌟 Features
 
-## How can I edit this code?
+- **Emotion Analysis**: Real-time emotion detection from user messages
+- **Coping Mechanism Recognition**: Identifies current coping strategies being used
+- **Alternative Suggestions**: Provides healthier coping mechanisms and actionable advice
+- **Responsive Design**: Beautiful, accessible interface that works on all devices
+- **Real-time Chat**: Smooth conversational experience with typing indicators
 
-There are several ways of editing your application.
+## 🏗️ Architecture Overview
 
-**Use Lovable**
+```mermaid
+graph TB
+    A[User Interface<br/>React + TypeScript] --> B[Chat Component]
+    B --> C[Message Analysis API]
+    C --> D[FastAPI Backend]
+    D --> E[Google Gemini AI]
+    E --> F[Emotion Analysis]
+    E --> G[Coping Mechanism Detection]
+    E --> H[Alternative Suggestions]
+    F --> I[Structured Response]
+    G --> I
+    H --> I
+    I --> D
+    D --> C
+    C --> B
+    B --> A
+```
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d1fe37ab-ad17-474e-8176-cce670023c85) and start prompting.
+## 🛠️ Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+### Frontend
+- **React 18** - Modern React with hooks and functional components
+- **TypeScript** - Type-safe development
+- **Vite** - Fast build tool and development server
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Beautiful, accessible component library
+- **Lucide React** - Icon library
+- **React Router** - Client-side routing
 
-**Use your preferred IDE**
+### Backend
+- **FastAPI** - Modern Python web framework
+- **Google Gemini AI** - Advanced language model for emotion analysis
+- **Python 3.11+** - Backend runtime
+- **CORS Middleware** - Cross-origin resource sharing
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Development Tools
+- **ESLint** - Code linting
+- **PostCSS** - CSS processing
+- **Node.js & npm** - Package management
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🔄 Application Flow
 
-Follow these steps:
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant UI as React Frontend
+    participant API as FastAPI Backend
+    participant AI as Gemini AI
+    
+    U->>UI: Types message
+    UI->>UI: Display user message
+    UI->>UI: Show typing indicator
+    UI->>API: POST /analyze
+    API->>AI: Send prompt with user message
+    AI->>AI: Analyze emotion & coping mechanisms
+    AI->>API: Return structured analysis
+    API->>UI: JSON response with analysis
+    UI->>UI: Display AI response with insights
+    UI->>UI: Auto-scroll to bottom
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 📁 Project Structure
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+```
+src/
+├── components/
+│   ├── ui/                 # shadcn/ui components
+│   ├── ChatMessage.tsx     # Individual message component
+│   ├── ChatInput.tsx       # Message input component
+│   ├── TypingIndicator.tsx # Loading animation
+│   └── WelcomeScreen.tsx   # Landing screen
+├── pages/
+│   ├── Index.tsx          # Main chat interface
+│   └── NotFound.tsx       # 404 page
+├── hooks/
+│   └── use-toast.ts       # Toast notification hook
+├── lib/
+│   └── utils.ts           # Utility functions
+└── main.tsx               # Application entry point
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🚀 Getting Started
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Prerequisites
+- Node.js 18+ and npm
+- Python 3.11+
+- Google Gemini API key
+
+### Frontend Setup
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd mindful-ai
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The frontend will be available at `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Backend Setup
 
-**Use GitHub Codespaces**
+1. Navigate to your backend directory and install dependencies:
+```bash
+pip install fastapi uvicorn google-generativeai python-dotenv
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+2. Create a `.env` file with your Gemini API key:
+```bash
+GEMINI_API_KEY=your_api_key_here
+```
 
-## What technologies are used for this project?
+3. Run the FastAPI server:
+```bash
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
 
-This project is built with:
+The backend API will be available at `http://localhost:8000`
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🔧 API Endpoints
 
-## How can I deploy this project?
+### POST `/analyze`
+Analyzes user input and returns emotional insights.
 
-Simply open [Lovable](https://lovable.dev/projects/d1fe37ab-ad17-474e-8176-cce670023c85) and click on Share -> Publish.
+**Request Body:**
+```json
+{
+  "thought": "User's message text"
+}
+```
 
-## Can I connect a custom domain to my Lovable project?
+**Response:**
+```json
+{
+  "response": "AI response message",
+  "emotion": "detected_emotion",
+  "coping_mechanism": "current_coping_strategy", 
+  "action": "suggested_action",
+  "alternative_coping": "healthier_alternative"
+}
+```
 
-Yes, you can!
+## 🎨 Component Architecture
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```mermaid
+graph TD
+    A[Index - Main Page] --> B[WelcomeScreen]
+    A --> C[Chat Interface]
+    C --> D[ChatMessage]
+    C --> E[ChatInput]
+    C --> F[TypingIndicator]
+    D --> G[Emotion Badge]
+    D --> H[Coping Mechanism Display]
+    D --> I[Action Suggestions]
+    D --> J[Alternative Coping]
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 🌐 Deployment
+
+### Frontend (Lovable)
+Simply open [Lovable](https://lovable.dev/projects/d1fe37ab-ad17-474e-8176-cce670023c85) and click on Share → Publish.
+
+### Backend (Render/Railway/Vercel)
+The FastAPI backend can be deployed to any Python hosting platform. Make sure to:
+1. Set environment variables for your Gemini API key
+2. Update CORS origins to include your frontend domain
+3. Update the API endpoint URL in the frontend
+
+## 🔒 Environment Variables
+
+### Backend
+- `GEMINI_API_KEY` - Your Google Gemini AI API key
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit changes: `git commit -am 'Add feature'`
+4. Push to branch: `git push origin feature-name`
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+For support and questions:
+- Open an issue on GitHub
+- Visit the [Lovable Discord community](https://discord.com/channels/1119885301872070706/1280461670979993613)
+- Check the [Lovable documentation](https://docs.lovable.dev/)

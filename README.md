@@ -179,14 +179,27 @@ graph TD
 
 ## 🌐 Deployment
 
-### Frontend (Lovable)
-Simply open [Lovable](https://lovable.dev/projects/d1fe37ab-ad17-474e-8176-cce670023c85) and click on Share → Publish.
+Both frontend and backend are deployed on **Render**.
 
-### Backend (Render/Railway/Vercel)
-The FastAPI backend can be deployed to any Python hosting platform. Make sure to:
-1. Set environment variables for your Gemini API key
-2. Update CORS origins to include your frontend domain
-3. Update the API endpoint URL in the frontend
+### Live Application
+- **Frontend**: https://mindfulai-frontend.onrender.com/
+- **Backend**: https://mindfulai-backend.onrender.com/
+
+### Render Deployment Setup
+
+#### Frontend Deployment
+1. Connect your GitHub repository to Render
+2. Create a new Web Service
+3. Set build command: `npm install && npm run build`
+4. Set start command: `npm run preview` or use a static site service
+5. Set environment to Node.js
+
+#### Backend Deployment  
+1. Create a new Web Service for the FastAPI backend
+2. Set build command: `pip install -r requirements.txt`
+3. Set start command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+4. Add environment variable: `GEMINI_API_KEY=your_api_key_here`
+5. Configure CORS origins to include your frontend domain
 
 ## 🔒 Environment Variables
 

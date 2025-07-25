@@ -213,14 +213,3 @@ Both frontend and backend are deployed on **Render**.
 3. Commit changes: `git commit -am 'Add feature'`
 4. Push to branch: `git push origin feature-name`
 5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
-## 🆘 Support
-
-For support and questions:
-- Open an issue on GitHub
-- Visit the [Lovable Discord community](https://discord.com/channels/1119885301872070706/1280461670979993613)
-- Check the [Lovable documentation](https://docs.lovable.dev/)
